@@ -49,6 +49,7 @@ public Context context = getApplicationContext();
 						
 					}
 				});
+				ad.show();
 			}
 		    }
 	};

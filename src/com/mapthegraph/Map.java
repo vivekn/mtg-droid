@@ -87,6 +87,7 @@ public class Map extends MapActivity {
 		super.onCreate(b);
 		setContentView(R.layout.map_layout);
 		mapView = (MapView) findViewById(R.id.map_view);
+		mapView.setBuiltInZoomControls(true);
 		updateButton = (Button) findViewById(R.id.update_button);
 		updateButton.setOnClickListener(updateClick);
 		map_initialize();
