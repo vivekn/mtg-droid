@@ -22,8 +22,16 @@ public final class R {
         public static final int ic_tab_update=0x7f020008;
         public static final int icon=0x7f020009;
     }
+    public static final class id {
+        public static final int namefield=0x7f050000;
+        public static final int profilepic=0x7f050001;
+        public static final int statusfield=0x7f050002;
+    }
     public static final class layout {
-        public static final int main=0x7f030000;
+        public static final int feed=0x7f030000;
+        public static final int listview=0x7f030001;
+        public static final int main=0x7f030002;
+        public static final int updateview=0x7f030003;
     }
     public static final class string {
         public static final int app_name=0x7f040001;

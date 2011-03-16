@@ -60,5 +60,7 @@ public Context context = getApplicationContext();
 	@Override
 	public void onCreate(Bundle b) {
 		super.onCreate(b);
+		//Load layout
+		
 	}
 }

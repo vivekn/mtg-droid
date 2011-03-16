@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--I think this is the basic view Which is done. Rest all  will be done in Java. The customization and all-->
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent" 
+              android:layout_height="fill_parent"
+              android:orientation="vertical">
+	<TextView     android:id="@+id/namefield"                 
+	              android:layout_width="fill_parent"
+	              android:layout_height="wrap_content"
+	              android:text="Name of the Person "></TextView>
+	<LinearLayout android:layout_width="fill_parent"
+				  android:orientation="horizontal">
+	<ImageView android:maxHeight = "30sp"
+			   android:layout_height ="50sp"
+			   android:layout_width = "50sp"
+			   android:id = "@+id/profilepic"></ImageView>
+			   
+	<TextView     android:id="@+id/statusfield"                       
+	              android:layout_height="fill_parent"
+	              android:layout_width="wrap_content"
+	              android:text="Recent update"></TextView>
+	</LinearLayout>
+</LinearLayout>
