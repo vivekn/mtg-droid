@@ -27,18 +27,34 @@ public final class R {
         public static final int icon=0x7f020009;
     }
     public static final class id {
+        public static final int friendname=0x7f060003;
+        public static final int friendpic=0x7f060002;
         public static final int map_view=0x7f060000;
-        public static final int namefield=0x7f060002;
-        public static final int profilepic=0x7f060003;
-        public static final int statusfield=0x7f060004;
+        public static final int namefield=0x7f06000c;
+        public static final int profilepic=0x7f06000d;
+        public static final int si_btn=0x7f060008;
+        public static final int si_pass=0x7f060007;
+        public static final int si_user=0x7f060006;
+        public static final int signin_link=0x7f060005;
+        public static final int signup_link=0x7f060004;
+        public static final int statusfield=0x7f06000e;
+        public static final int su_btn=0x7f06000b;
+        public static final int su_pass=0x7f06000a;
+        public static final int su_user=0x7f060009;
         public static final int update_button=0x7f060001;
     }
     public static final class layout {
         public static final int feed=0x7f030000;
-        public static final int listview=0x7f030001;
-        public static final int main=0x7f030002;
-        public static final int map_layout=0x7f030003;
-        public static final int updateview=0x7f030004;
+        public static final int friend_locator=0x7f030001;
+        public static final int listview=0x7f030002;
+        public static final int main=0x7f030003;
+        public static final int map_layout=0x7f030004;
+        public static final int nameview=0x7f030005;
+        public static final int openingscreen=0x7f030006;
+        public static final int profile_view=0x7f030007;
+        public static final int signin=0x7f030008;
+        public static final int signup=0x7f030009;
+        public static final int updateview=0x7f03000a;
     }
     public static final class string {
         public static final int app_name=0x7f050001;

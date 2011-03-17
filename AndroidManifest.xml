@@ -22,6 +22,11 @@
         <activity android:name="FirstTime"></activity>
         <activity android:name="NewUser"></activity>
         <activity android:name="SigninScreen"></activity>
+        <activity android:name="ShareLocation"></activity>
+        <activity android:name="StartController"></activity>
+        <activity android:name="FBConnect"></activity>
+        <activity android:name="UserProfile"></activity>
+
 	<uses-library android:name="com.google.android.maps"/>
     </application>
 </manifest>

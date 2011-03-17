@@ -26,8 +26,7 @@ public class FBConnect extends Activity {
 			      new DialogListener() {
 			           public void onComplete(Bundle values) {
 			        	   // Launch Main Screen
-			        	   SharedPreferences mySharedPreferences = getSharedPreferences("mapTheGraph", Activity.MODE_PRIVATE); 
-			        	   SharedPreferences.Editor editor = mySharedPreferences.edit();
+						   SharedPreferences.Editor editor = Utils.getEditor(FBConnect.this);
 			        	   editor.putBoolean("logged_in", true);
 			        	   editor.commit();
 			        	   
