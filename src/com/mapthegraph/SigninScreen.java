@@ -24,7 +24,7 @@ public class SigninScreen extends Activity {
 							
 			// Data validation
 			
-			// Send data to server
+			// Store Data in shared prefs, Check if user valid
 						
 			// Show Waiting Alert
 				Context context = getApplicationContext();
@@ -32,12 +32,8 @@ public class SigninScreen extends Activity {
 				int duration = Toast.LENGTH_LONG;
 				Toast toast = Toast.makeText(context, msg, duration);
 				toast.show();
-				
-			// Receive data from server
 			
-			// Show Success or Failure Alert
-				toast.cancel();
-				//...
+			// If invalid, show alert, refresh screen
 			
 			// Switch to next screen
 				Intent home = new Intent(SigninScreen.this, Tabs.class);

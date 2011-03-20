@@ -1,0 +1,80 @@
+# Create your views here.
+from api.models import *
+from django.utils import simplejson
+
+def serialize_update(queryset):
+    FIELDS = ['user.name', 'latitude', 'longitude', 'message', 'reverse_geocode'
+              'tag.name']
+    string = ''
+    for item in queryset:
+        values = []
+        for field in FIELDS:
+            if field.find('.') != -1:
+                f1, f2 = field.split('.', 1)
+                temp = getattr(item, f1)
+                temp = getattr(temp, f2)
+            else:
+                temp = getattr(item, field)
+            values.append(temp)
+        string += dumps(dict(zip(FIELDS,values))) + '\n'
+    return string
+
+def login_user(user, pw):
+    return User.objects.get(userid = user, pass_hash = pass_hash)
+
+def check_user(request):
+    '''
+    Checks if a user exists in the database or not
+    '''
+    if request.POST:
+        user = request.POST['user_name']
+        pass_hash = request.POST['hash']
+        if login_user(user, pass_hash)
+            # Return True Response
+        else:
+            # Return False Response
+
+def create_user(request):
+    '''
+    Creates a new user in the database
+    '''
+    if request.POST:
+        user = request.POST['user_name']
+        pass_hash = request.POST['hash']
+
+        if User.objects.filter(userid = user):
+            #Return user already exists response
+        else:
+            User.objects.create(userid = user, pass_hash = pass_hash)
+            #Return success
+
+def self_feed(request):
+    if request.POST:
+        user = login_user(request.POST['user_name'], request.POST['hash'])
+        if user:
+            return serialize_update(user.update_set.order_by('-timestamp'))
+    #Fail Response
+
+def friend_feed(request):
+    if request.POST:
+        user = login_user(request.POST['user_name'], request.POST['hash'])
+        if user:
+            return serialize_update(user.get_friend_feed())
+    #Fail Response
+    
+def new_fb_connections(request):
+    if request.POST:
+        user = login_user(request.POST['user_name'], request.POST['hash'])
+        if user:
+            users = [x.strip() for x in request.POST['users'].split(',')]
+            create = lambda x: Connection.objects.get_or_create(from_friend = user, to_friend = x)
+            map(create, users)
+            #return success
+    #return failure
+    
+
+def save_fb_uid(request):
+    pass
+        
+        
+        
