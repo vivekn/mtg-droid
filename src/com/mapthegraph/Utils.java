@@ -140,5 +140,15 @@ public class Utils {
 		return null;
 	}
 
+	public static void postUpdateFB_friends() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public static void postUpdateFB_id() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 }

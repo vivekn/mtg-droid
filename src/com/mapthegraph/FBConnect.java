@@ -26,11 +26,20 @@ public class FBConnect extends Activity {
 			      new DialogListener() {
 			           public void onComplete(Bundle values) {
 			        	   // Launch Main Screen
+			        	   if (values.isEmpty())
+			               {
+			                   //"skip" clicked ?
+			                   return;
+			               }
+
 						   SharedPreferences.Editor editor = Utils.getEditor(FBConnect.this);
 			        	   editor.putBoolean("logged_in", true);
 			        	   editor.commit();
-			        	   
+			        	   Utils.postUpdateFB_id();
+			        	   Utils.postUpdateFB_friends();
 			        	   Intent mainScreen = new Intent(FBConnect.this, Tabs.class);
+			        	   
+			        	   finish();
 			        	   startActivity(mainScreen);
 			           }
 			           
