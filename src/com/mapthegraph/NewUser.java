@@ -24,36 +24,40 @@ public class NewUser extends Activity {
 			if (Utils.isOnline(NewUser.this)){
 							
 			// Data validation
+				if (passEdit.getText().toString().length() < Utils.PASS_MIN_LENGTH)
+				{
+					Utils.simpleAlert(context, "Password should contain atleast " + Utils.PASS_MIN_LENGTH + " characters");
+					
+				}
+				else {
 			
-			// Send data to server
-						
-			// Show Waiting Alert
-				Context context = getApplicationContext();
-				String msg = "Creating New User ...";
-				int duration = Toast.LENGTH_LONG;
-				Toast toast = Toast.makeText(context, msg, duration);
-				toast.show();
-				
-			// Receive data from server
-			
-			// Show Success or Failure Alert
-				toast.cancel();
-				//...
+				// Show Waiting Alert  
 				SharedPreferences.Editor editor = Utils.getEditor(NewUser.this);
 	        	editor.putBoolean("registered", true);
 	        	editor.putString("user", userEdit.getText().toString());
 	        	editor.putString("pass", Utils.encrypt(passEdit.getText().toString()));
 	        	editor.commit();
-			
+	        	
+	    		Utils.toaster(context, "Signing Up", Toast.LENGTH_SHORT);
+				Boolean result = Utils.postUserCreate();
+					        	
+	        	if(!result) {
+					Utils.simpleAlert(context, "Sorry, the user already exists, please try a different name or sign in instead.");
+					//Code for restarting activity
+					Intent intent = getIntent();
+					finish();
+					startActivity(intent);
+				}
 			// Switch to next screen
 				Intent home = new Intent(NewUser.this, FBConnect.class);
+				finish();
 				startActivity(home); /* close existing activity before starting this */
+				}
 			}
 			else {
 				// Show Alert
 				AlertDialog.Builder ad = Utils.simpleAlert(context, "A working internet connection is required. Please check your connectivity and try again later.");
 				ad.show();
-			
 		    }
 		}
 	};

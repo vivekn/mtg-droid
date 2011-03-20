@@ -16,6 +16,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import com.google.gson.Gson;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -26,8 +27,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class Utils {
+	protected static final int PASS_MIN_LENGTH = 6;
+
 	public static String encrypt(String pass) {
 		return pass;
 	}
@@ -115,4 +119,26 @@ public class Utils {
 
 		return contents;
 	}
+	
+	public static Update[] updatesFromString(String dump) {
+		Gson gson = new Gson();
+		return gson.fromJson(dump, Update[].class);
+	}
+	
+	public static void toaster(Context a, String message, int duration) {
+	        Toast.makeText(a, message, duration)
+	             .show();
+	    }
+
+	public static Boolean postUserCheck() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public static Boolean postUserCreate() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 }
