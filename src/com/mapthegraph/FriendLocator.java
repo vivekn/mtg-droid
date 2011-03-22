@@ -7,4 +7,5 @@ public class FriendLocator extends Activity {
 	public void onCreate(Bundle b) {
 		super.onCreate(b);
 	}
+	//TODO
 }

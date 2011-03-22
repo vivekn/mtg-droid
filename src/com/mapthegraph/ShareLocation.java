@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 public class ShareLocation extends Activity {
-	
+	//TODO: Add Views, Server interfacing
 	private OnClickListener share = new OnClickListener() {
 		
 		public void onClick(View v) {

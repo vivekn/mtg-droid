@@ -4,27 +4,16 @@ import android.os.Bundle;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.mapthegraph.models.Update;
 import com.mapthegraph.views.UpdateView;
 
-class Update {
-	public String name, picture, update;
-	public Update(String name, String picture, String update) {
-		this.name = name;
-		this.picture = picture;
-		this.update = update;
-	}
-}
+//TODO: Populate feed, picture loading from facebook
 
 public class UpdatesFeed extends Activity{
 	
-	public Update[] getFeed() {
-		Update array[] = null; 
-		
-		// get feed from server
-		
-		return array;
-	}
+	
 	
 	
 	@Override
@@ -36,18 +25,21 @@ public class UpdatesFeed extends Activity{
 		TextView title = new TextView(this);
 		title.setText("Updates from Friends");
 		title.setTextSize(40);
-		
-		Update feed[] = getFeed();
-		
+			
 		int lHeight = LinearLayout.LayoutParams.FILL_PARENT;
 		int lWidth = LinearLayout.LayoutParams.WRAP_CONTENT;
 		ll.setLayoutParams(new LayoutParams(lWidth, lHeight));
 		
+		Utils.toaster(getApplicationContext(), "Loading Updates ...", Toast.LENGTH_LONG);
+		
+		Update[] feed = Utils.getFeed();
+		
 		for (Update update : feed ) {
 			UpdateView x = new UpdateView(this);
-			x.nameField.setText(update.name);
-			x.statusField.setText(update.update);
-			Utils.loadPicture(x.profilePicture, update.picture);
+			x.nameField.setText(update.user.name);
+			x.statusField.setText(update.message);
+			
+			Utils.loadPicture(x.profilePicture, update.user.getImageUrl());
 			ll.addView(x, new LayoutParams(lHeight, lWidth));
 			
 		}

@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.HttpResponse;
@@ -15,8 +16,11 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 
 import com.google.gson.Gson;
+import com.mapthegraph.models.Update;
+import com.mapthegraph.models.User;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -29,9 +33,12 @@ import android.net.ConnectivityManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+//TODO: All the post methods
+
 public class Utils {
 	protected static final int PASS_MIN_LENGTH = 6;
-
+	public static Activity activity = new Activity(); 
+	
 	public static String encrypt(String pass) {
 		return pass;
 	}
@@ -41,16 +48,14 @@ public class Utils {
 		 return cm.getActiveNetworkInfo().isConnectedOrConnecting();
 		}
 	
-	public static void loadPicture(ImageView imView, String urlString) {
+	public static void loadPicture(ImageView imView, String user) {
 		try {
-			URL url = new URL(urlString);
+			URL url = new URL(user);
 			Bitmap bitmap = BitmapFactory.decodeStream(url.openStream());
 			imView.setImageBitmap(bitmap);
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			
 		}
 		
@@ -100,7 +105,7 @@ public class Utils {
 	public static String postData(String url, List<NameValuePair> l) {
 		 // Create a new HttpClient and Post Header
 	    HttpClient httpclient = new DefaultHttpClient();
-	    SharedPreferences s = new Activity().getPreferences(Activity.MODE_PRIVATE);
+	    SharedPreferences s = activity.getPreferences(Activity.MODE_PRIVATE);
 	    String baseUrl = s.getString("base_url", "TODO:INSERT DEFAULT URL HERE");
 	    HttpPost httppost = new HttpPost(baseUrl + url);
 	    String contents = null;
@@ -112,9 +117,8 @@ public class Utils {
 	        HttpResponse response = httpclient.execute(httppost);
 	        contents = inputStreamToString(response.getEntity().getContent());
 	    } catch (ClientProtocolException e) {
-	        // TODO Auto-generated catch block
+	        
 	    } catch (IOException e) {
-	        // TODO Auto-generated catch block
 	    }
 
 		return contents;
@@ -131,13 +135,27 @@ public class Utils {
 	    }
 
 	public static Boolean postUserCheck() {
-		// TODO Auto-generated method stub
-		return null;
+		List<NameValuePair> l = new ArrayList<NameValuePair>(2);
+    	SharedPreferences s = activity.getPreferences(Activity.MODE_PRIVATE);
+	    String user = s.getString("user", "");
+	    String pass = s.getString("pass", "");
+
+		l.add(new BasicNameValuePair("userid", user));
+		l.add(new BasicNameValuePair("pass_hash", pass));
+		String response = postData("check", l);
+		return response=="Success"?true:false;
 	}
 
 	public static Boolean postUserCreate() {
-		// TODO Auto-generated method stub
-		return null;
+		List<NameValuePair> l = new ArrayList<NameValuePair>(2);
+    	SharedPreferences s = activity.getPreferences(Activity.MODE_PRIVATE);
+	    String user = s.getString("user", "");
+	    String pass = s.getString("pass", "");
+
+		l.add(new BasicNameValuePair("userid", user));
+		l.add(new BasicNameValuePair("pass_hash", pass));
+		String response = postData("create", l);
+		return response=="Success"?true:false;
 	}
 
 	public static void postUpdateFB_friends() {
@@ -146,8 +164,28 @@ public class Utils {
 	}
 
 	public static void postUpdateFB_id() {
-		// TODO Auto-generated method stub
+		List<NameValuePair> l = new ArrayList<NameValuePair>(2);
+    	SharedPreferences s = activity.getPreferences(Activity.MODE_PRIVATE);
+	    String user = s.getString("user", "");
+	    String pass = s.getString("pass", "");
+	    String uid = s.getString("fb_uid", ""); //TODO Get this from FB Singleton
+
+		l.add(new BasicNameValuePair("userid", user));
+		l.add(new BasicNameValuePair("pass_hash", pass));
+		l.add(new BasicNameValuePair("fb_uid", uid));
+		postData("fb_save_uid", l);
 		
+	}
+
+	public static Update[] getFeed() {
+		List<NameValuePair> l = new ArrayList<NameValuePair>(2);
+    	SharedPreferences s = activity.getPreferences(Activity.MODE_PRIVATE);
+	    String user = s.getString("user", "");
+	    String pass = s.getString("pass", "");
+
+		l.add(new BasicNameValuePair("userid", user));
+		l.add(new BasicNameValuePair("pass_hash", pass));
+		return updatesFromString(postData("feed/", l));
 	}
 
 	

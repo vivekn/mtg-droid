@@ -22,7 +22,7 @@ import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 
 public class Map extends MapActivity {
-	
+	//TODO: Add Overlays, Menu
 	public MapView mapView;
 	public MapController mapController;
 	public Button updateButton;
